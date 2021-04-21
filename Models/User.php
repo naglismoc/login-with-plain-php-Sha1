@@ -1,5 +1,5 @@
 <?php
-include("./Dbh.php");
+include("Dbh.php");
 
 class User {
 

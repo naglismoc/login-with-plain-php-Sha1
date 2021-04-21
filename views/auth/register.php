@@ -1,30 +1,4 @@
-<?php
-session_start();
-if(!isset($_SESSION['user'])){
-    $_SESSION['user'] = 0;
-}
-if($_SESSION['user'] == 1){
-   header("location:./index.php");
-}
-
-include("./User.php");
-if($_SERVER['REQUEST_METHOD']=='POST'){
-    if($_POST['password'] == $_POST['password2']){
-            
-        $user = new User();
-        $user->setEmail($_POST['email']);
-        $user->setPassword(sha1($_POST['password']));
-        $user->save();
-        echo "registracija sėkminga!";
-        $_SESSION['user'] = 1;
-    }
-   }
-
-
-?>
-
-
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,7 +7,27 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <title>Registracija</title>
 </head>
 <body>
-<?php include("./header.php");?>
+<?php include("../header.php");
+
+
+include(Controllers."/UserController.php");
+if(!isset($_SESSION['user'])){
+    $_SESSION['user'] = 0;
+}
+if($_SESSION['user'] == 1){
+   header("location:./index.php");
+}
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    register($_POST);
+    // test();
+   }
+
+
+?>
+
+
+<
 
 <form action="" method="POST">
   <label for="email">pastas:</label><br>

@@ -8,7 +8,7 @@ class Dbh{
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "kioskas";
+        $dbname = "biblioteka";
     
         $conn = new mysqli($servername, $username, $password, $dbname);
     
