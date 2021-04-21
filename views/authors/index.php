@@ -11,6 +11,20 @@
 
 include(Controllers."/AuthorController.php");
 
+if($_SERVER['REQUEST_METHOD']=='POST'){
+
+  if(isset($_POST['id'])){
+    if(destroy($_POST)){
+      header("location:".views."/authors");
+    }
+    $message = "Autoriaus trinti negalima nes jis turi knygų";
+  }
+}
+if(isset($_POST['idAll'])){
+  destroyAll($_POST);
+    header("location:".views."/authors");
+}
+
 
 $authors = findAll();
 
@@ -43,8 +57,12 @@ tr:nth-child(even) {
 </head>
 <body>
 
-<h2>HTML Table</h2>
-
+<h2>Autoriai</h2>
+<?php
+if(isset($message)){
+  echo '<h1 style="color:red";>'.$message.'</h1>';
+}
+?>
 <table>
   <tr>
     <th>Name</th>
@@ -52,6 +70,7 @@ tr:nth-child(even) {
     <th>books</th>
     <th>edit</th>
     <th>delete</th>
+    <th>delete all</th>
   </tr>
   <?php 
   foreach ($authors as  $author) {  
@@ -61,9 +80,20 @@ tr:nth-child(even) {
       <td>".$author->surname."</td>
       <td>".$author->surname."</td>";
       echo '<td><a href="'.views.'/authors/edit.php?id='.$author->id.'">edit</a></td>
-      <td>'.$author->surname.'</td>
+      <td><form action="#" method="post">
+      <input type="hidden" name="id" value="'.$author->id.'">
+      <button type="submit">trinti</button>
+      </form></td>';
+
+      echo '<td>
+              <form action="#" method="post">
+                <input type="hidden" name="idAll" value="'.$author->id.'">
+                <button type="submit">trinti viską</button>
+              </form>
+            </td>';
       
-        </tr>';
+        echo'</tr>';
+       
  
 }
 

@@ -30,7 +30,10 @@ function author($id)
 {
     return Book::author($id);
 }
-
+function destroy($request)
+{
+   Book::delete($request);
+}
 
 
 

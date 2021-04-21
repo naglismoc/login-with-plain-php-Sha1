@@ -12,6 +12,16 @@
 include(Controllers."/BookController.php");
 
 
+if($_SERVER['REQUEST_METHOD']=='POST'){
+
+ 
+    destroy($_POST);
+    header("location:".views."/books");
+
+}
+
+
+
 $books = findAll();
 
 
@@ -62,10 +72,15 @@ tr:nth-child(even) {
       <td>".$book->title."</td>
       <td>".$book->pages."</td>
       <td>".$author->name." ".$author->surname."</td>";
-      echo '<td><a href="'.views.'/books/edit.php?id='.$book->id.'">edit</a></td>
-      <td>'.$book->pages.'</td>
+      echo '<td><a href="'.views.'/books/edit.php?id='.$book->id.'">edit</a></td>';
+      echo '<td>
+      <form action="#" method="post">
+        <input type="hidden" name="id" value="'.$book->id.'">
+        <button type="submit">trinti knygą</button>
+      </form>
+    </td>';
       
-        </tr>';
+      echo  '</tr>';
  
 }
 
